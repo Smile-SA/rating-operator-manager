@@ -110,7 +110,6 @@ def callback_login(**kwargs: Dict) -> kopf.ConnectionInfo:
 
     :kwargs (Dict) A dictionary containing optional parameters (for compatibility).
     """
-    kwargs['logger'].info(os.environ)
     if utils.envvar_bool('AUTH'):
         return kopf.ConnectionInfo(
             server=os.environ.get('KUBERNETES_PORT').replace('tcp', 'https'),
