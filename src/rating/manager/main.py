@@ -7,6 +7,7 @@ from kubernetes.client.rest import ApiExceptionError
 
 from rating.manager import utils
 from rating.manager import rating_rules
+from rating.manager import rating_instances
 
 
 def register_admin_key(api: client.CoreV1Api):

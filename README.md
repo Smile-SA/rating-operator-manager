@@ -19,7 +19,7 @@ Each resource triggering callbacks when generated, modified or deleted.
 The **RatingRules** are one of the two base configurations of the **rating-operator**.
 They are used for multiple purposes:
 
-- Declaring list of rules, with or without labels, to be used in **promQL** (By [RatingRuleModels](https://github.com/alterway/rating-operator/blob/master/documentation/CRD.md))
+- Declaring list of rules, with or without labels, to be used in **promQL** (By [RatingRuleInstances](https://github.com/alterway/rating-operator/blob/master/documentation/CRD.md))
 - Configure the metrics rated by the *legacy* version of the **rating-operator** (with metering-operator, deprecated)
 
 More information on RatingRules can be found in [Custom Resource documentation](https://github.com/alterway/rating-operator/blob/master/documentation/CRD.md).
