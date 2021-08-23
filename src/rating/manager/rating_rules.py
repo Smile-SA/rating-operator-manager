@@ -33,7 +33,7 @@ def rating_rules_creation(body: Dict,
     try:
         utils.post_for_rating_api(endpoint='/ratingrules/add',
                                   payload=data)
-    except utils.ConfigurationException as exc:
+    except utils.ConfigurationExceptionError as exc:
         logger.error(f'RatingRules {rules_name} is invalid. Reason: {exc}')
     except requests.exceptions.RequestException:
         raise kopf.TemporaryError(f'Request for RatingRules {rules_name} update failed. retrying in 30s', delay=30)
@@ -66,9 +66,9 @@ def rating_rules_update(body: Dict,
     try:
         utils.post_for_rating_api(endpoint='/ratingrules/update',
                                   payload=data)
-    except utils.ApiException:
+    except utils.ApiExceptionError:
         logger.warning(f'RatingRules {rules_name} does not exist in storage, ignoring.')
-    except utils.ConfigurationException as exc:
+    except utils.ConfigurationExceptionError as exc:
         logger.error(f'RatingRules {rules_name} is invalid. Reason: {exc}')
     except requests.exceptions.RequestException:
         logger.error(f'Request for RatingRules {rules_name} update failed.')
@@ -99,7 +99,7 @@ def rating_rules_deletion(body: Dict,
     try:
         utils.post_for_rating_api(endpoint='/ratingrules/delete',
                                   payload=data)
-    except utils.ApiException:
+    except utils.ApiExceptionError:
         logger.warning(f'RatingRules {rules_name} does not exist in storage, ignoring.')
     except requests.exceptions.RequestException:
         logger.error(f'Request for RatingRules {rules_name} deletion failed.')

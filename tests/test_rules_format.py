@@ -158,7 +158,7 @@ class TestRulesFormat(unittest.TestCase):
                 unit: GiB-hours
         """)
 
-        with self.assertRaisesRegex(utils.ConfigurationException,
+        with self.assertRaisesRegex(utils.ConfigurationExceptionError,
                                     ('Wrong key in rules')):
             rules.ensure_rules_config(rules_test)
 
@@ -214,7 +214,7 @@ class TestRulesFormat(unittest.TestCase):
                 unit: GiB-hours
         """)
 
-        with self.assertRaisesRegex(utils.ConfigurationException,
+        with self.assertRaisesRegex(utils.ConfigurationExceptionError,
                                     'Duplicated'):
             rules.ensure_rules_config(rules_test)
 
@@ -226,7 +226,7 @@ class TestRulesFormat(unittest.TestCase):
                 thisis: atest
         """)
 
-        with self.assertRaisesRegex(utils.ConfigurationException,
+        with self.assertRaisesRegex(utils.ConfigurationExceptionError,
                                     'No rules'):
             rules.ensure_rules_config(rules_test)
 
@@ -240,6 +240,6 @@ class TestRulesFormat(unittest.TestCase):
                 unit: GiB-hours
         """)
 
-        with self.assertRaisesRegex(utils.ConfigurationException,
+        with self.assertRaisesRegex(utils.ConfigurationExceptionError,
                                     'Invalid value'):
             rules.ensure_rules_config(rules_test)

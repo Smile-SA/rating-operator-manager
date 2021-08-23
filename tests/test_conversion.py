@@ -1,7 +1,7 @@
 import unittest
 
 from rating.manager import rates
-from rating.manager.utils import ConfigurationException
+from rating.manager.utils import ConfigurationExceptionError
 
 class TestConversion(unittest.TestCase):
     """Test the conversion for metering-operator based rating."""
@@ -37,7 +37,7 @@ class TestConversion(unittest.TestCase):
         rating_unit = 'some-random-rating_unit'
         metric_unit = 'core-seconds'
         qty = 1
-        with self.assertRaisesRegex(ConfigurationException,
+        with self.assertRaisesRegex(ConfigurationExceptionError,
                                     'Unsupported key'):
             rates.convert_metrics_unit(metric_unit,
                                        rating_unit,

@@ -36,4 +36,4 @@ def convert_metrics_unit(metric_unit: AnyStr,
             ('byte', 'GiB'): lambda x: (float(x) / 1024 ** 3)
         }[(metric_unit, rating_unit)](qty)
     except KeyError:
-        raise utils.ConfigurationException('Unsupported key in conversion')
+        raise utils.ConfigurationExceptionError('Unsupported key in conversion')

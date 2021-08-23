@@ -116,7 +116,7 @@ def report_event(body: Dict,
 
     configurations = retrieve_configurations_from_API()
     if not configurations:
-        raise utils.ConfigurationMissing(
+        raise utils.ConfigurationMissingError(
             'Bad response from API, no configuration found.'
         )
     begin = rated_or_not(metadata['name'])

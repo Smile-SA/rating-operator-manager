@@ -60,17 +60,17 @@ def ensure_rules_config(ruleset: List[Dict]):
         # Rules checking
         rules = entry.get('ruleset')
         if not rules or len(rules) == 0:
-            raise utils.ConfigurationException(
+            raise utils.ConfigurationExceptionError(
                 'No rules provided')
         for rule in rules:
             if rule in pair_checking:
-                raise utils.ConfigurationException(
+                raise utils.ConfigurationExceptionError(
                     'Duplicated (metric, value, unit)',
                     rule)
             # Keys checking
             keys = set(rule.keys())
             if keys != accepted_rules_keys:
-                raise utils.ConfigurationException(
+                raise utils.ConfigurationExceptionError(
                     'Wrong key in ruleset',
                     keys)
             # Values checking
@@ -78,7 +78,7 @@ def ensure_rules_config(ruleset: List[Dict]):
                 if isinstance(value, (int, float)):
                     continue
                 elif not validate_value(value):
-                    raise utils.ConfigurationException(
+                    raise utils.ConfigurationExceptionError(
                         'Invalid value in ruleset',
                         value
                     )
@@ -90,4 +90,4 @@ def ensure_rules_config(ruleset: List[Dict]):
             continue
         for value in labels.values():
             if not isinstance(value, (str, int, float)):
-                raise utils.ConfigurationException('Wrong type for label', value)
+                raise utils.ConfigurationExceptionError('Wrong type for label', value)
