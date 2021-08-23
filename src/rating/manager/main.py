@@ -3,7 +3,7 @@ import kopf
 from kubernetes import client, config
 from base64 import b64decode
 import os
-from kubernetes.client.rest import ApiException
+from kubernetes.client.rest import ApiExceptionError
 
 from rating.manager import utils
 from rating.manager import rating_rules
@@ -19,7 +19,7 @@ def register_admin_key(api: client.CoreV1Api):
     secret_name = f'{namespace}-admin'
     try:
         secret_encoded_bytes = api.read_namespaced_secret(secret_name, namespace).data
-    except ApiException as exc:
+    except ApiExceptionError as exc:
         raise exc
     rating_admin_api_key = list(secret_encoded_bytes.keys())[0]
     os.environ[rating_admin_api_key] = b64decode(
@@ -77,7 +77,7 @@ def scan_cluster_namespaces(api: client.CoreV1Api):
     """
     try:
         namespace_list = api.list_namespace()
-    except ApiException as exc:
+    except ApiExceptionError as exc:
         raise exc
     for namespace_obj in namespace_list.items:
         update_namespace_tenant(

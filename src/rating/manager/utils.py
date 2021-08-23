@@ -7,19 +7,19 @@ import requests
 import sys
 
 
-class ConfigurationMissing(Exception):
+class ConfigurationMissingError(Exception):
     """Simple error class to handle missing configuration api side."""
 
     pass
 
 
-class ConfigurationException(Exception):
+class ConfigurationExceptionError(Exception):
     """Simple error class to handle rating configuration errors."""
 
     pass
 
 
-class ApiException(Exception):
+class ApiExceptionError(Exception):
     """Simple error class to handle rating-api related errors."""
 
     pass
@@ -113,9 +113,9 @@ def post_for_rating_api(endpoint: AnyStr, payload: Dict) -> Dict:
     }
     response = requests.post(url=f'{api_url}{endpoint}', headers=headers,json=payload)
     if response.status_code == 400:  # When ratingrule is wrong
-        raise ConfigurationException(response.content.decode("utf-8"))
+        raise ConfigurationExceptionError(response.content.decode("utf-8"))
     elif response.status_code == 404:  # When object is not found
-        raise ApiException
+        raise ApiExceptionError
     try:
         response.raise_for_status()
     except requests.exceptions.RequestException:

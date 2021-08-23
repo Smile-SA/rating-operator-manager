@@ -1,7 +1,7 @@
 import unittest
 
 from rating.manager.metrics import ensure_metrics_config
-from rating.manager.utils import ConfigurationException
+from rating.manager.utils import ConfigurationExceptionError
 
 
 class TestMetrics(unittest.TestCase):
@@ -64,7 +64,7 @@ class TestMetrics(unittest.TestCase):
                 'unit': 'byte-seconds'
             }
         }
-        with self.assertRaisesRegex(ConfigurationException,
+        with self.assertRaisesRegex(ConfigurationExceptionError,
                                     'Unsupported key in metrics definition'):
             ensure_metrics_config(metrics_dict)
 
@@ -95,6 +95,6 @@ class TestMetrics(unittest.TestCase):
                 'unit': 'byte-seconds'
             }
         }
-        with self.assertRaisesRegex(ConfigurationException,
+        with self.assertRaisesRegex(ConfigurationExceptionError,
                                     'Unsupported unit'):
             ensure_metrics_config(metrics_dict)
