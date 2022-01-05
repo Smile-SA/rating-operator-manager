@@ -28,13 +28,16 @@ def rating_instances_creation(body: Dict,
         data = {
             'metric_name': spec.get('name', {}),
             'timeframe': spec.get('timeframe', {}),
+            'promql': spec.get('metric', {}),
             'cpu': spec.get('cpu', {}),
             'memory': spec.get('memory', {}),
             'price': spec.get('price', {}),
         }
+        logger.error(f'dat dat dat dat dat dat {data} dat dat dat')
         try:
             utils.post_for_rating_api(endpoint='/templates/metric/add',
                                       payload=data)
+            utils.post_for_rating_api(endpoint='/templates/instance/add',payload=data)
         except utils.ConfigurationExceptionError as exc:
             logger.error(f'RatingRulesInstance {rules_name} is invalid. Reason: {exc}')
         except requests.exceptions.RequestException:
@@ -65,6 +68,8 @@ def rating_instances_deletion(body: Dict,
         }
         try:
             utils.post_for_rating_api(endpoint='/templates/metric/delete',
+                                      payload=data)
+            utils.post_for_rating_api(endpoint='/templates/instance/delete',
                                       payload=data)
         except utils.ConfigurationExceptionError as exc:
             logger.error(f'RatingRulesInstance {rules_name} is invalid. Reason: {exc}')
