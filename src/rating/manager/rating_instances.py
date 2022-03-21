@@ -33,7 +33,6 @@ def rating_instances_creation(body: Dict,
             'memory': spec.get('memory', {}),
             'price': spec.get('price', {}),
         }
-        logger.error(f'dat dat dat dat dat dat {data} dat dat dat')
         try:
             utils.post_for_rating_api(endpoint='/templates/metric/add',
                                       payload=data)
