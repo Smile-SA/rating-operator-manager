@@ -8,8 +8,8 @@ from datetime import datetime as dt
 
 from rating.manager import utils
 
-@kopf.on.create('rating.alterway.fr', 'v1', 'ratingruleinstances')
-@kopf.on.update('rating.alterway.fr', 'v1', 'ratingruleinstances')
+@kopf.on.create('rating.smile.fr', 'v1', 'ratingruleinstances')
+@kopf.on.update('rating.smile.fr', 'v1', 'ratingruleinstances')
 @utils.assert_rating_namespace
 def rating_instances_creation(body: Dict,
                               spec: Dict,
@@ -23,7 +23,7 @@ def rating_instances_creation(body: Dict,
     :logger (Logger) A Logger object to log informations.
     :kwargs (Dict) A dictionary holding unused parameters.
     """
-    if 'cpu' in spec.keys() and 'memory' in spec.keys() and 'price' in spec.keys():
+    if 'cpu' in spec.keys() and 'memory' in spec.keys() and 'price' in spec.keys() and 'surface' in spec.keys() and 'power' in spec.keys():
         rules_name = body['metadata']['name']
         data = {
             'metric_name': spec.get('name', {}),
@@ -32,6 +32,8 @@ def rating_instances_creation(body: Dict,
             'cpu': spec.get('cpu', {}),
             'memory': spec.get('memory', {}),
             'price': spec.get('price', {}),
+            'power': spec.get('power', {}),
+            'surface': spec.get('surface', {})
         }
         try:
             utils.post_for_rating_api(endpoint='/templates/metric/add',
@@ -46,7 +48,7 @@ def rating_instances_creation(body: Dict,
                 f'RatingRule {rules_name} created/updated.')
 
 
-@kopf.on.delete('rating.alterway.fr', 'v1', 'ratingruleinstances')
+@kopf.on.delete('rating.smile.fr', 'v1', 'ratingruleinstances')
 @utils.assert_rating_namespace
 def rating_instances_deletion(body: Dict,
                               spec: Dict,
