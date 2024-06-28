@@ -9,10 +9,6 @@ from datetime import datetime as dt
 from rating.manager import utils
 
 
-@kopf.on.create('rating.alterway.fr', 'v1', 'ratingrules')
-@utils.assert_rating_namespace
-def rating_rules_creation_alterway(body: Dict, spec: Dict, logger: Logger, **kwargs: Dict):
-    handle_rating_rules_creation(body, spec, logger, **kwargs)
 
 @kopf.on.create('rating.smile.fr', 'v1', 'ratingrules')
 @utils.assert_rating_namespace
@@ -36,10 +32,7 @@ def handle_rating_rules_creation(body: Dict, spec: Dict, logger: Logger, **kwarg
     else:
         logger.info(f'RatingRule {rules_name} created, valid from {timestamp}.')
 
-@kopf.on.update('rating.alterway.fr', 'v1', 'ratingrules')
-@utils.assert_rating_namespace
-def rating_rules_update_alterway(body: Dict, spec: Dict, logger: Logger, **kwargs: Dict):
-    handle_rating_rules_update(body, spec, logger, **kwargs)
+
 
 @kopf.on.update('rating.smile.fr', 'v1', 'ratingrules')
 @utils.assert_rating_namespace
@@ -66,10 +59,6 @@ def handle_rating_rules_update(body: Dict, spec: Dict, logger: Logger, **kwargs:
         logger.info(f'Rating rules {rules_name} was updated.')
 
 
-@kopf.on.delete('rating.alterway.fr', 'v1', 'ratingrules')
-@utils.assert_rating_namespace
-def rating_rules_deletion_alterway(body: Dict, spec: Dict, logger: Logger, **kwargs: Dict):
-    handle_rating_rules_deletion(body, spec, logger, **kwargs)
 
 @kopf.on.delete('rating.smile.fr', 'v1', 'ratingrules')
 @utils.assert_rating_namespace
@@ -96,10 +85,7 @@ def handle_rating_rules_deletion(body: Dict, spec: Dict, logger: Logger, **kwarg
 def delete_rated_metric_smile(body: Dict, spec: Dict, logger: Logger, **kwargs: Dict):
     handle_delete_rated_metric(body, spec, logger, **kwargs)
 
-@kopf.on.delete('rating.alterway.fr', 'v1', 'ratedmetrics')
-@utils.assert_rating_namespace
-def delete_rated_metric_alterway(body: Dict, spec: Dict, logger: Logger, **kwargs: Dict):
-    handle_delete_rated_metric(body, spec, logger, **kwargs)
+
 
 def handle_delete_rated_metric(body: Dict, spec: Dict, logger: Logger, **kwargs: Dict):
     data = {

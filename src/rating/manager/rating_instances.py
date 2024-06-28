@@ -9,15 +9,6 @@ from datetime import datetime as dt
 from rating.manager import utils
 
 
-@kopf.on.create('rating.alterway.fr', 'v1', 'ratingruleinstances')
-@kopf.on.update('rating.alterway.fr', 'v1', 'ratingruleinstances')
-@utils.assert_rating_namespace
-def rating_instances_creation_alterway(body: Dict,
-                                       spec: Dict,
-                                       logger: Logger,
-                                       **kwargs: Dict):
-    handle_rating_instances_creation(body, spec, logger, **kwargs)
-
 @kopf.on.create('rating.smile.fr', 'v1', 'ratingruleinstances')
 @kopf.on.update('rating.smile.fr', 'v1', 'ratingruleinstances')
 @utils.assert_rating_namespace
@@ -70,14 +61,6 @@ def rating_instances_deletion_smile(body: Dict,
                                     spec: Dict,
                                     logger: Logger,
                                     **kwargs: Dict):
-    handle_rating_instances_deletion(body, spec, logger, **kwargs)
-
-@kopf.on.delete('rating.alterway.fr', 'v1', 'ratingruleinstances')
-@utils.assert_rating_namespace
-def rating_instances_deletion_alterway(body: Dict,
-                                       spec: Dict,
-                                       logger: Logger,
-                                       **kwargs: Dict):
     handle_rating_instances_deletion(body, spec, logger, **kwargs)
 
 def handle_rating_instances_deletion(body: Dict,
