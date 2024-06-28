@@ -44,7 +44,6 @@ def handle_rating_instances_creation(body: Dict,
     :type kwargs: Dict
     """
     required_keys = ['cpu', 'memory', 'price']
-    
     if all(key in spec for key in required_keys):
         rules_name = body['metadata']['name']
         data = {
@@ -98,7 +97,6 @@ def handle_rating_instances_deletion(body: Dict,
     :type kwargs: Dict
     """
     required_keys = ['cpu', 'memory', 'price']
-
     if all(key in spec for key in required_keys):
         rules_name = body['metadata']['name']
         data = {
